@@ -1,22 +1,9 @@
 # System Architecture
 
-WorkTrak follows Clean Architecture.
+WorkTrak follows a Clean Architecture approach.
 
-```mermaid
-flowchart TD
+## Dependency Graph
 
-UI[Frontend UI]
+This diagram is generated automatically from the source code.
 
-APP[Application Layer]
-
-DOMAIN[Domain Layer]
-
-INFRA[Infrastructure Layer]
-
-DB[(Database)]
-
-UI --> APP
-APP --> DOMAIN
-INFRA --> DOMAIN
-INFRA --> DB
-```
+![Dependency Graph](./diagrams/dependency-graph.svg)
