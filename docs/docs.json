@@ -32,7 +32,8 @@
             "architecture/overview",
             "architecture/domain",
             "architecture/application",
-            "architecture/infrastructure"
+            "architecture/infrastructure",
+            "architecture/architecture-dashboard"
           ]
         },
         {
