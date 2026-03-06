@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1772493631158,
+      "tag": "0000_steep_rick_jones",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1772664232907,
+      "tag": "0001_public_sprite",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1772694867826,
+      "tag": "0002_mute_gladiator",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "WorkTrak",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+  "tabs": [
+    {
+      "tab": "Guides",
+      "groups": [
+        {
+          "group": "Getting started",
+          "pages": [
+            "index",
+            "quickstart",
+            "guides/development"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Architecture",
+      "groups": [
+        {
+          "group": "System",
+          "pages": [
+            "architecture/overview",
+            "architecture/domain",
+            "architecture/application",
+            "architecture/infrastructure"
+          ]
+        },
+        {
+          "group": "Architecture Decisions",
+          "pages": [
+            "adr/0001-initial-architecture"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "API reference",
+      "groups": [
+        {
+          "group": "API",
+          "pages": [
+            "api/introduction"
+          ]
+        }
+      ]
+    }
+  ]
+},
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hi@mintlify.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.mintlify.com"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
+    }
+  }
+}
