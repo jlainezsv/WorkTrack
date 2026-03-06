@@ -10,7 +10,8 @@
     "push": "drizzle-kit push",
     "test:db": "ts-node src/test-db.ts",
     "test:repo": "ts-node src/test-repositories.ts",
-    "start": "ts-node src/infrastructure/http/main.ts"
+    "build": "tsc",
+    "start": "node dist/infrastructure/http/main.js"
   },
   "keywords": [],
   "author": "",
