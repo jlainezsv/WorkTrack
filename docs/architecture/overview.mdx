@@ -1,0 +1,22 @@
+# System Architecture
+
+WorkTrak follows Clean Architecture.
+
+```mermaid
+flowchart TD
+
+UI[Frontend UI]
+
+APP[Application Layer]
+
+DOMAIN[Domain Layer]
+
+INFRA[Infrastructure Layer]
+
+DB[(Database)]
+
+UI --> APP
+APP --> DOMAIN
+INFRA --> DOMAIN
+INFRA --> DB
+```

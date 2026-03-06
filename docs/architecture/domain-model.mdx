@@ -1,0 +1,18 @@
+# Domain Model
+
+```mermaid
+classDiagram
+
+class Employee {
+  id
+  name
+}
+
+class TimeEntry {
+  id
+  startTime
+  endTime
+}
+
+Employee "1" --> "*" TimeEntry
+```

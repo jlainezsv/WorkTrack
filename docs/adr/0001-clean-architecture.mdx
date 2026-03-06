@@ -1,0 +1,33 @@
+# ADR-0001: Adopt Clean Architecture
+
+Date: 2026-03-05  
+Status: Accepted
+
+---
+
+## Context
+
+WorkTrak requires a scalable architecture where business logic is independent from frameworks and infrastructure.
+
+The goal is to allow the system to evolve without rewriting core logic.
+
+## Decision
+
+Adopt Clean Architecture with the following layers:
+
+- Domain
+- Application
+- Infrastructure
+- Interface
+
+## Consequences
+
+### Positive
+
+- High maintainability
+- Testable business logic
+- Clear separation of concerns
+
+### Negative
+
+- Higher initial complexity
