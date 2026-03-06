@@ -6,10 +6,10 @@ import { useEffect } from "react"
 import { AppLayout } from "@/ui/components/AppLayout"
 
 import { Button } from "@/ui/components/ui/button"
-import { Field, FieldDescription, FieldLabel } from "@/ui/components/ui/field"
+import { Field, FieldLabel } from "@/ui/components/ui/field"
 import { Input } from "@/ui/components/ui/input"
 import { Textarea } from "@/ui/components/ui/textarea"
-import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,} from "@/ui/components/ui/select"
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/ui/components/ui/select"
 
 const registerTimeEntry = new RegisterTimeEntry(
   sharedTimeEntryRepository,

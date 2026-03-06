@@ -28,7 +28,7 @@ export function EmployeeProfile() {
   const [totalHours, setTotalHours] = useState(0)
   const [paidHours, setPaidHours] = useState(0)
   const [unpaidHours, setUnpaidHours] = useState(0)
-  const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined)
+  // const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined)
   const DEFAULT_AVATAR = `https://ui-avatars.com/api/?name=${encodeURIComponent(employee?.name || "")}`
 
   const loadEmployeeData = async () => {
