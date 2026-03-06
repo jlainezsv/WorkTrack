@@ -8,7 +8,7 @@ async function bootstrap() {
   app.useGlobalFilters(new ApplicationExceptionFilter());
 
   app.enableCors({
-    origin: "http://localhost:5173",
+    origin: true,
   });
 
 
