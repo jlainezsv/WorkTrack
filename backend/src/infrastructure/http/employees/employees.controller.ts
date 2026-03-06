@@ -120,6 +120,15 @@ export class EmployeesController {
       this.toTimeEntryResponseDto(entry)
     );
   }
+  @Get("/time-entries/all")
+    async getAllTimeEntries(): Promise<TimeEntryResponseDto[]> {
+
+      const entries = await this.timeEntryRepository.findAll()
+
+      return entries.map((entry) =>
+        this.toTimeEntryResponseDto(entry)
+      )
+  }
 
   @Post(":id/time-entries")
   async registerTime(

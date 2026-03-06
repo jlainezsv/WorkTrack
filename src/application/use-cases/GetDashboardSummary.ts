@@ -5,6 +5,7 @@ interface DashboardSummaryItem {
   employeeId: string
   employeeName: string
   totalHours: number
+  employeeCode?: string
 }
 
 export class GetDashboardSummary {
@@ -38,7 +39,8 @@ export class GetDashboardSummary {
       result.push({
         employeeId,
         employeeName: employee ? employee.name : "Unknown",
-        totalHours: summaryMap[employeeId]
+        totalHours: summaryMap[employeeId],
+        employeeCode: employee ? employee.employeeCode : "Unknown"
       })
     }
 

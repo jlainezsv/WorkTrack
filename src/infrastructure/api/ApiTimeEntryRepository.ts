@@ -15,7 +15,7 @@ export class ApiTimeEntryRepository implements TimeEntryRepository {
   }
 
   async findAll(): Promise<TimeEntry[]> {
-    const dtos = await apiClient.get<TimeEntryDTO[]>("/time-entries")
+    const dtos = await apiClient.get<TimeEntryDTO[]>("/employees/time-entries/all")
     return dtos.map(TimeEntryMapper.toDomain)
   }
 

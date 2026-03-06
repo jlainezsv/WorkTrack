@@ -54,7 +54,7 @@ export function Employees() {
   return (
     <AppLayout>
 
-      <h1 className="text-2xl font-semibold">Employees</h1>
+      <h1>Employees</h1>
 
       <div className="my-16">
 
@@ -62,7 +62,7 @@ export function Employees() {
 
           <TableHeader>
             <TableRow>
-              <TableHead>Employee Code</TableHead>
+              <TableHead>Code</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Created</TableHead>
@@ -75,7 +75,7 @@ export function Employees() {
 
               <TableRow key={emp.id}>
 
-                <TableCell>
+                <TableCell className="w-[120px]">
                   <Link
                     to={`/employee/${emp.id}`}
                     className="font-medium underline"

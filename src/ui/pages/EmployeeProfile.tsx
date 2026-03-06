@@ -110,32 +110,27 @@ export function EmployeeProfile() {
           <Button>Add Hours</Button>
         </Link>
       </div>
-      <Table>
+      <Table className="mb-2">
           <TableHeader>
             <TableRow>
-              {/* <TableHead>Date Range</TableHead> */}
-              <TableHead>Time Range</TableHead>
-              <TableHead>Hours</TableHead>
-              <TableHead>Client</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead className="w-1/6">Client</TableHead>
+              <TableHead className="w-1/2">Description</TableHead>
+              <TableHead className="w-1/12 text-center">Hours</TableHead>
+              <TableHead className="w-1/12 text-center">Status</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {entries.map((entry) => (
               <TableRow key={entry.id}>
-                {/* <TableCell>{entry.start.toLocaleString()} — {entry.end.toLocaleString()}</TableCell> */}
-                <TableCell>
-                  {entry.startTime.toLocaleString()} — {entry.endTime.toLocaleString()}
-                </TableCell>
-
-                <TableCell>
-                  {entry.getDurationInHours().toFixed(2)}
-                </TableCell>
                 <TableCell>{entry.clientName || "-"}</TableCell>
                 <TableCell>{entry.description || "-"}</TableCell>
-                <TableCell>{entry.status}</TableCell>
+                <TableCell className="text-center">
+                  {entry.getDurationInHours().toFixed(2)}
+                </TableCell>
+                
+                
+                <TableCell className="text-center capitalize">{entry.status}</TableCell>
                 <TableCell>
                   
                   <Button onClick={() => handleToggleStatus(entry)} variant="outline" className="w-full">

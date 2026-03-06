@@ -15,7 +15,7 @@ const getDashboardSummary = new GetDashboardSummary(
 
 export function Dashboard() {
   const [summary, setSummary] = useState<
-    { employeeId: string; employeeName: string; totalHours: number }[]
+    { employeeId: string; employeeName: string; totalHours: number; employeeCode?: string }[]
   >([])
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export function Dashboard() {
           <TableCaption>A list of worked hours by employee.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">ID</TableHead>
+              <TableHead className="w-[120px]">ID</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Worked Hours</TableHead>
             </TableRow>
@@ -53,7 +53,7 @@ export function Dashboard() {
               <TableRow key={item.employeeId}>
                 <TableCell>
                   <Link to={`/employee/${item.employeeId}`}>
-                    {item.employeeId}
+                    {item.employeeCode}
                   </Link>
                 </TableCell>
                 <TableCell>{item.employeeName}</TableCell>

@@ -11,9 +11,11 @@ async function bootstrap() {
     origin: "http://localhost:5173",
   });
 
-  await app.listen(3000);
+  const PORT = process.env.PORT || 4000;
 
-  console.log("HTTP server running on http://localhost:3000");
+  await app.listen(PORT);
+
+  console.log(`HTTP server running on http://localhost:${PORT}`);
 }
 
 bootstrap();
