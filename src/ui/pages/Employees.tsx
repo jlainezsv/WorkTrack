@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+
 import { CreateEmployee } from "@application/use-cases/CreateEmployee"
 import { sharedEmployeeRepository } from "@infrastructure/SharedRepository"
 import { Employee } from "@domain/entities/Employee"
@@ -7,7 +7,9 @@ import { Employee } from "@domain/entities/Employee"
 import { AppLayout } from "@/ui/components/AppLayout"
 import { Button } from "@/ui/components/ui/button"
 import { Input } from "@/ui/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/ui/components/ui/table"
+
+import { EmployeesTable } from "../components/employee/EmployeesTable"
+import { EmployeesCards } from "../components/employee/EmployeesCards"
 
 const createEmployee = new CreateEmployee(sharedEmployeeRepository)
 
@@ -55,56 +57,12 @@ export function Employees() {
     <AppLayout>
 
       <h1>Employees</h1>
-
-      <div className="my-16">
-
-        <Table>
-
-          <TableHeader>
-            <TableRow>
-              <TableHead>Code</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Created</TableHead>
-            </TableRow>
-          </TableHeader>
-
-          <TableBody>
-
-            {employees.map(emp => (
-
-              <TableRow key={emp.id}>
-                <TableCell className="w-[120px]">
-                  <Link
-                    to={`/employee/${emp.id}`}
-                    className="font-medium underline"
-                  >
-                    {emp.employeeCode}
-                  </Link>
-                </TableCell>
-
-                <TableCell>{emp.name}</TableCell>
-
-                <TableCell>
-                  {emp.status === "active" ? "Active" : "Inactive"}
-                </TableCell>
-
-                <TableCell>
-                  {emp.createdAt
-                    ? new Date(emp.createdAt).toLocaleDateString()
-                    : "-"
-                  }
-                </TableCell>
-
-              </TableRow>
-
-            ))}
-
-          </TableBody>
-
-        </Table>
-
+      <div className="md:my-16 my-6">
+        <EmployeesCards employees={employees} />
+        <EmployeesTable employees={employees} />
       </div>
+      
+  
       <div className="mt-20 max-w-md">
 
         <h3 className="text-lg font-semibold mb-4">
