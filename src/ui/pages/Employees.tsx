@@ -74,7 +74,6 @@ export function Employees() {
             {employees.map(emp => (
 
               <TableRow key={emp.id}>
-
                 <TableCell className="w-[120px]">
                   <Link
                     to={`/employee/${emp.id}`}
