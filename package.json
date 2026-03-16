@@ -8,8 +8,6 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-
-
     "generate:diagram": "depcruise src --output-type dot | dot -T svg > docs/architecture/diagrams/dependency-graph.svg",
     "diagram:system": "depcruise src backend --output-type dot | dot -Tsvg -o docs/architecture/diagrams/system.svg",
     "diagram:src": "depcruise src --output-type dot | dot -Tsvg -o docs/architecture/diagrams/src-dependencies.svg",
@@ -17,17 +15,17 @@
     "diagram:layers": "depcruise src backend --output-type dot --collapse '^(src|backend)/[^/]+' | dot -Tsvg -o docs/architecture/diagrams/layers.svg",
     "generate:diagrams": "npm run diagram:system && npm run diagram:src && npm run diagram:backend && npm run diagram:layers",
     "docs:refresh": "npm run generate:diagram",
-
     "generate:c4": "docker run --rm -v $(pwd):/workspace -w /workspace structurizr/cli export -workspace architecture/c4/worktrak.dsl -format plantuml -output docs/architecture/c4",
     "c4:export": "structurizr export -workspace architecture/c4/worktrak.dsl -format plantuml -output docs/architecture/c4",
     "c4:render": "plantuml docs/architecture/c4/*.puml",
     "c4": "npm run c4:export && npm run c4:render"
-
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-menubar": "^1.1.16",
+    "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-separator": "^1.1.8",
     "@radix-ui/react-slot": "^1.2.4",
@@ -37,6 +35,7 @@
     "next-themes": "^0.4.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-responsive": "^10.0.1",
     "react-router-dom": "^7.13.1",
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7"
