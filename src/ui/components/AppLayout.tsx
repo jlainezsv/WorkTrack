@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import { ThemeToggle } from "@/ui/components/ThemeToggle"
 import { MainMenu } from "../components/MainMenu"
 
 interface AppLayoutProps {
