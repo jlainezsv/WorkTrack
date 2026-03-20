@@ -5,6 +5,7 @@ import { GetEmployees } from "../../../application/use-cases/GetEmployees";
 import { CreateEmployee } from "../../../application/use-cases/CreateEmployee";
 import { RegisterTimeEntry } from "../../../application/use-cases/RegisterTimeEntry";
 import { UpdateTimeEntryStatus } from "../../../application/use-cases/UpdateTimeEntryStatus";
+import { UpdateEmployee } from "../../../application/use-cases/UpdateEmployee";
 
 /* Repositories */
 import { EmployeeRepository } from "../../../application/repositories/EmployeeRepository";
@@ -24,6 +25,7 @@ export class EmployeesController {
   private readonly getEmployees: GetEmployees;
   private readonly createEmployee: CreateEmployee;
   private readonly registerTimeEntry: RegisterTimeEntry;
+  private readonly updateEmployeeUseCase: UpdateEmployee;
 
   constructor(
     @Inject("EmployeeRepository")
@@ -44,6 +46,8 @@ export class EmployeesController {
       this.employeeRepository,
       this.timeEntryRepository
     );
+
+    this.updateEmployeeUseCase = new UpdateEmployee(this.employeeRepository);
   }
 
   /*
@@ -154,6 +158,15 @@ export class EmployeesController {
       body.status
     );
   }
+  @Patch(":id")
+    async updateEmployee(
+      @Param("id") id: string,
+      @Body() body: { name?: string; photoUrl?: string; status?: "active" | "inactive" }
+    ): Promise<EmployeeResponseDto> {
+      await this.updateEmployeeUseCase.execute({ id, ...body })
+      const employee = await this.employeeRepository.findById(id)
+      return this.toResponseDto(employee!)
+  }
 
   /*
   ─────────────────────────────────────────
@@ -170,6 +183,7 @@ export class EmployeesController {
       employeeCode: employee.employeeCode,
       name: employee.name,
       active: employee.active,
+      status: employee.active ? "active" : "inactive",
       createdAt: employee.createdAt.toISOString(),
     };
   }

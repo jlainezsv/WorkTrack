@@ -9,8 +9,9 @@ const apiClient = new ApiClient()
 
 export class ApiEmployeeRepository implements EmployeeRepository {
 
-  async findAll(): Promise<Employee[]> {
-    const dtos = await apiClient.get<EmployeeDTO[]>("/employees")
+  async findAll(includeInactive = false): Promise<Employee[]> {
+    const query = includeInactive ? "?includeInactive=true" : ""
+    const dtos = await apiClient.get<EmployeeDTO[]>(`/employees${query}`)
     return dtos.map(EmployeeMapper.toDomain)
   }
 
@@ -27,6 +28,13 @@ export class ApiEmployeeRepository implements EmployeeRepository {
     await apiClient.post("/employees", {
       name: employee.name,
       photoUrl: employee.photoUrl
+    })
+  }
+  async update(employee: Employee): Promise<void> {
+    await apiClient.patch(`/employees/${employee.id}`, {
+      name: employee.name,
+      photoUrl: employee.photoUrl,
+      status: employee.status,
     })
   }
 

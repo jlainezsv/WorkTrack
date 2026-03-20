@@ -81,4 +81,18 @@ export class DrizzleEmployeeRepository implements EmployeeRepository {
 
     return result.length > 0;
   }
+
+  async update(employee: Employee): Promise<void> {
+    await db
+      .update(employees)
+      .set({ name: employee.name, active: employee.active })
+      .where(eq(employees.id, employee.id));
+  }
+
+  async updateStatus(id: string): Promise<void> {
+    await db
+      .update(employees)
+      .set({ active: false })
+      .where(eq(employees.id, id));
+  }
 }

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { GetEmployeeHours } from "@application/use-cases/GetEmployeeHours"
-import { Button } from "@/ui/components/ui/button"
+import { EditEmployeeDialog } from "./EditEmployeeDialog"
+import { AddHoursDialog } from "./AddHoursDialog"
 
 import { TimeEntry } from "@domain/entities/TimeEntry"
 import { Employee } from "@domain/entities/Employee"
@@ -10,9 +11,7 @@ import { AppLayout } from "@/ui/components/AppLayoutFull"
 
 
 
-import { sharedTimeEntryRepository } from "@infrastructure/SharedRepository"
-import { sharedEmployeeRepository } from "@infrastructure/SharedRepository"
-import { updateTimeEntryStatus } from "@infrastructure/SharedRepository"
+import { sharedTimeEntryRepository, sharedEmployeeRepository, updateTimeEntryStatus, updateEmployee } from "@infrastructure/SharedRepository"
 
 import { EmployeeProfileDesktop } from "../components/employee/EmployeeProfileDesktop"
 import { EmployeeProfileMobile } from "../components/employee/EmployeeProfileMobile"
@@ -33,18 +32,29 @@ export function EmployeeProfile() {
   // const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined)
   const DEFAULT_AVATAR = `https://ui-avatars.com/api/?name=${encodeURIComponent(employee?.name || "")}`
 
+  const sortMostRecentFirst = (items: TimeEntry[]) =>
+    [...items].sort(
+      (a, b) =>
+        new Date(b.startTime).getTime() - new Date(a.startTime).getTime()
+    )
+
   const loadEmployeeData = async () => {
     if (!id) return
 
     const result = await getEmployeeHours.execute(id)
 
-    setEntries(result.entries)
+    setEntries(sortMostRecentFirst(result.entries))
     setTotalHours(result.totalHours)
     setPaidHours(result.paidHours)
     setUnpaidHours(result.unpaidHours)
 
     const emp = await sharedEmployeeRepository.findById(id)
     setEmployee(emp)
+  }
+
+  const handleUpdate = async (id: string, name: string, photoUrl: string, status: "active" | "inactive") => {
+    await updateEmployee.execute({ id, name, photoUrl, status })
+    await loadEmployeeData()
   }
 
   const handleToggleStatus = async (entry: TimeEntry) => {
@@ -63,7 +73,7 @@ export function EmployeeProfile() {
 
       const result = await getEmployeeHours.execute(id)
 
-      setEntries(result.entries)
+      setEntries(sortMostRecentFirst(result.entries))
       setTotalHours(result.totalHours)
       setPaidHours(result.paidHours)
       setUnpaidHours(result.unpaidHours)
@@ -102,14 +112,29 @@ export function EmployeeProfile() {
           <p className="hidden text-muted-foreground text-sm">
             ID: {employee?.id}
           </p>
+          
+        </div>
+        <div>
+          {employee && (
+            <EditEmployeeDialog
+              employee={employee}
+              onUpdated={loadEmployeeData}
+              onSave={handleUpdate}
+            />
+          )}
         </div>
       </div>
       <div className="flex w-full justify-between mt-10 mb-2">
         <p className="text-lg md:text-2xl font-bold">Total Hours: {totalHours}</p>
-        <Link to={`/add-hours/${id}`}>
-          <Button>Add Hours</Button>
-        </Link>
+        {id && (
+          <AddHoursDialog
+            employeeId={id}
+            employeeName={employee?.name}
+            onCreated={loadEmployeeData}
+          />
+        )}
       </div>
+      
       <div className="my-3">
           <EmployeeProfileMobile 
             employee={employee}

@@ -10,4 +10,8 @@ export interface EmployeeRepository {
   findAll(includeInactive?: boolean): Promise<Employee[]>;
 
   existsById(id: string): Promise<boolean>;
+
+  updateStatus(id: string): Promise<void>;
+
+  update(employee: Employee): Promise<void>;
 }

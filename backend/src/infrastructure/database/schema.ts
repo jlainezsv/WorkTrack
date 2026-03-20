@@ -32,6 +32,29 @@ export const employees = pgTable(
 );
 
 /*
+  Clients Table
+*/
+export const clients = pgTable(
+  "clients",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    name: text("name").notNull(),
+    contactName: text("contact_name"),
+    email: text("email"),
+    phone: text("phone"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => {
+    return {
+      nameIdx: index("clients_name_idx").on(table.name),
+      emailIdx: index("clients_email_idx").on(table.email),
+    };
+  }
+);
+
+/*
   Time Entries Table
 */
 export const timeEntries = pgTable(

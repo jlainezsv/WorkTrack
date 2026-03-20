@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { sharedTimeEntryRepository } from "@infrastructure/SharedRepository"
 import { RegisterTimeEntry } from "@application/use-cases/RegisterTimeEntry"
-import { sharedEmployeeRepository } from "@infrastructure/SharedRepository"
+import { sharedClientRepository, sharedEmployeeRepository } from "@infrastructure/SharedRepository"
 import { useEffect } from "react"
 import { AppLayout } from "@/ui/components/AppLayout"
 
@@ -24,6 +24,7 @@ export function AddHours() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [employees, setEmployees] = useState<any[]>([])
+  const [clients, setClients] = useState<any[]>([])
   const [clientName, setClientName] = useState("")
   const [description, setDescription] = useState("")
 
@@ -32,8 +33,14 @@ export function AddHours() {
     setEmployees(list)
   }
 
+  async function loadClients() {
+    const list = await sharedClientRepository.findAll()
+    setClients(list)
+  }
+
   useEffect(() => {
     loadEmployees()
+    loadClients()
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -109,12 +116,19 @@ export function AddHours() {
 
         <div className="my-6">
           <Field>
-            <FieldLabel>Client Name</FieldLabel>
-            <Input
-              type="text"
-              value={clientName}
-              onChange={e => setClientName(e.target.value)}
-            />
+            <FieldLabel>Client</FieldLabel>
+            <Select value={clientName} onValueChange={(value) => setClientName(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Client" />
+              </SelectTrigger>
+              <SelectContent>
+                {clients.map((client) => (
+                  <SelectItem key={client.id} value={client.name}>
+                    {client.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </Field>
         </div>
 
