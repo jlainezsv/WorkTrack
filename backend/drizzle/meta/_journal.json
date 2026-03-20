@@ -29,6 +29,13 @@
       "when": 1773000000000,
       "tag": "0003_clients_table",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1773010000000,
+      "tag": "0004_paid_at_time_entries",
+      "breakpoints": true
     }
   ]
 }

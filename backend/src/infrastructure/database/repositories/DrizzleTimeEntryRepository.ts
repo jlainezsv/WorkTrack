@@ -49,6 +49,7 @@ export class DrizzleTimeEntryRepository implements TimeEntryRepository {
         clientName: entry.clientName,
         description: entry.description,
         status: entry.status,
+        paidAt: entry.paidAt,
         createdAt: entry.createdAt
       })
       .onConflictDoUpdate({
@@ -58,7 +59,8 @@ export class DrizzleTimeEntryRepository implements TimeEntryRepository {
           endTime: entry.endTime,
           clientName: entry.clientName,
           description: entry.description,
-          status: entry.status
+          status: entry.status,
+          paidAt: entry.paidAt,
         },
       })
   }
@@ -75,7 +77,8 @@ export class DrizzleTimeEntryRepository implements TimeEntryRepository {
         endTime: entry.endTime,
         clientName: entry.clientName,
         description: entry.description,
-        status: entry.status
+        status: entry.status,
+        paidAt: entry.paidAt,
       })
       .where(eq(timeEntries.id, entry.id))
   }
@@ -190,6 +193,7 @@ export class DrizzleTimeEntryRepository implements TimeEntryRepository {
       clientName: row.clientName,
       description: row.description,
       status: row.status as "paid" | "unpaid",
+      paidAt: row.paidAt,
       createdAt: row.createdAt
     })
   }

@@ -11,8 +11,10 @@
     "test:db": "ts-node src/test-db.ts",
     "test:repo": "ts-node src/test-repositories.ts",
     "dev": "ts-node src/infrastructure/http/main.ts",
+    "dev:clean": "sh -c 'pids=$(lsof -ti tcp:4000); if [ -n \"$pids\" ]; then kill $pids; fi; ts-node src/infrastructure/http/main.ts'",
     "build": "tsc",
-    "start": "node dist/infrastructure/http/main.js"
+    "start": "node dist/infrastructure/http/main.js",
+    "start:clean": "sh -c 'pids=$(lsof -ti tcp:4000); if [ -n \"$pids\" ]; then kill $pids; fi; node dist/infrastructure/http/main.js'"
   },
   "keywords": [],
   "author": "",

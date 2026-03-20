@@ -9,7 +9,7 @@ export class UpdateTimeEntryStatus {
     private readonly timeEntryRepository: TimeEntryRepository
   ) {}
 
-  async execute(id: string, status: "paid" | "unpaid") {
+  async execute(id: string, status: "paid" | "unpaid", paidAt?: string) {
 
     const entry = await this.timeEntryRepository.findById(id)
 
@@ -17,7 +17,22 @@ export class UpdateTimeEntryStatus {
       throw new Error("Time entry not found")
     }
 
-    entry.status = status
+    if (status === "paid") {
+      const selectedDate = paidAt ?? new Date().toISOString().split("T")[0]
+      const today = new Date().toISOString().split("T")[0]
+
+      if (selectedDate > today) {
+        throw new Error("Paid date cannot be in the future")
+      }
+
+      if (entry.status === "paid") {
+        entry.paidAt = selectedDate
+      } else {
+        entry.markAsPaid(selectedDate)
+      }
+    } else {
+      entry.markAsUnpaid()
+    }
 
     await this.timeEntryRepository.update(entry)
 

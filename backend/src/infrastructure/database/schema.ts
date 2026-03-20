@@ -4,6 +4,7 @@ import {
   text,
   boolean,
   timestamp,
+  date,
   index,
   check,
 } from "drizzle-orm/pg-core";
@@ -75,6 +76,7 @@ export const timeEntries = pgTable(
     description: text("description"),
 
     status: text("status").notNull().default("unpaid"),
+    paidAt: date("paid_at"),
 
     createdAt: timestamp("created_at", { withTimezone: true })
       .defaultNow()

@@ -151,11 +151,12 @@ export class EmployeesController {
   @Patch("time-entries/:id/status")
   async updateTimeEntryStatus(
     @Param("id") id: string,
-    @Body() body: { status: "paid" | "unpaid" }
+    @Body() body: { status: "paid" | "unpaid"; paidAt?: string }
   ) {
     return this.updateTimeEntryStatusUseCase.execute(
       id,
-      body.status
+      body.status,
+      body.paidAt
     );
   }
   @Patch(":id")
@@ -200,6 +201,7 @@ export class EmployeesController {
       clientName: entry.clientName ?? undefined,
       description: entry.description ?? undefined,
       status: entry.status,
+      paidAt: entry.paidAt ?? undefined,
       createdAt: entry.createdAt.toISOString(),
     };
   }

@@ -6,5 +6,6 @@ export interface TimeEntryDTO {
   clientName?: string
   description?: string
   status: "paid" | "unpaid"
+  paidAt?: string
   createdAt?: string
 }

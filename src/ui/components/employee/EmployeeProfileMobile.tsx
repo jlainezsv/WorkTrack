@@ -24,10 +24,27 @@ interface Props {
 export function EmployeeProfileMobile({
   entries,
   handleToggleStatus,
-}: Props & { handleToggleStatus: (entry: TimeEntry) => void }) {
+}: Props & { handleToggleStatus: (entry: TimeEntry, paidAt?: string) => void }) {
 
   // 🔹 ahora guardamos el ID abierto
   const [openId, setOpenId] = useState<string | null>(null)
+  const [payingEntryId, setPayingEntryId] = useState<string | null>(null)
+  const [paidDate, setPaidDate] = useState(new Date().toISOString().split("T")[0])
+
+  const beginPayFlow = (entryId: string) => {
+    setPayingEntryId(entryId)
+    setPaidDate(new Date().toISOString().split("T")[0])
+  }
+
+  const confirmPay = (entry: TimeEntry) => {
+    handleToggleStatus(entry, paidDate)
+    setPayingEntryId(null)
+  }
+
+  const getPaidDateLabel = (entry: TimeEntry) => {
+    if (!entry.paidAt) return "not set"
+    return new Date(`${entry.paidAt}T00:00:00`).toLocaleDateString()
+  }
 
   return (
     <div className="md:hidden">
@@ -81,6 +98,12 @@ export function EmployeeProfileMobile({
 
             <CollapsibleContent className="">
                 <div className="pt-3 flex flex-col gap-2">
+                    {entry.status === "paid" && (
+                      <div className="rounded-md border border-green-300 bg-green-100/60 px-3 py-2 text-sm text-green-900">
+                        Paid on: {getPaidDateLabel(entry)}
+                      </div>
+                    )}
+
                     <div className="flex justify-between border rounded-md px-3 py-2 text-sm">
                         <span className="text-muted-foreground">Client</span>
                         <span>{entry.clientName || "-"}</span>
@@ -106,15 +129,41 @@ export function EmployeeProfileMobile({
                     </div>
 
                     <div className="pt-3">
-                        <Button
-                        onClick={() => handleToggleStatus(entry)}
-                        variant="secondary"
-                        className="w-full"
-                        >
-                        {entry.status === "paid"
-                            ? "Mark as Unpaid"
-                            : "Mark as Paid"}
-                        </Button>
+                        {entry.status === "paid" ? (
+                          <Button
+                            onClick={() => handleToggleStatus(entry)}
+                            variant="secondary"
+                            className="w-full"
+                          >
+                            Mark as Unpaid
+                          </Button>
+                        ) : payingEntryId === entry.id ? (
+                          <div className="flex flex-col gap-2">
+                            <input
+                              type="date"
+                              value={paidDate}
+                              max={new Date().toISOString().split("T")[0]}
+                              onChange={(e) => setPaidDate(e.target.value)}
+                              className="h-10 rounded-md border border-input bg-background px-2 text-sm"
+                            />
+                            <div className="flex gap-2">
+                              <Button onClick={() => confirmPay(entry)} variant="secondary" className="w-full">
+                                Save Paid Date
+                              </Button>
+                              <Button onClick={() => setPayingEntryId(null)} variant="ghost" className="w-full">
+                                Cancel
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <Button
+                            onClick={() => beginPayFlow(entry.id)}
+                            variant="secondary"
+                            className="w-full"
+                          >
+                            Mark as Paid
+                          </Button>
+                        )}
                     </div>
                 </div>
             </CollapsibleContent>

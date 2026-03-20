@@ -39,9 +39,10 @@ export class ApiTimeEntryRepository implements TimeEntryRepository {
 
   private apiClient = new ApiClient();
 
-  async updateStatus(id: string, status: "paid" | "unpaid"): Promise<void> {
+  async updateStatus(id: string, status: "paid" | "unpaid", paidAt?: string): Promise<void> {
     await this.apiClient.patch(`/employees/time-entries/${id}/status`, {
       status,
+      paidAt,
     });
   }
 

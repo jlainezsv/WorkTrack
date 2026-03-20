@@ -10,6 +10,6 @@ export interface TimeEntryRepository {
 
   update(entry: TimeEntry): Promise<void>
 
-  updateStatus(id: string, status: "paid" | "unpaid"): Promise<void>
+  updateStatus(id: string, status: "paid" | "unpaid", paidAt?: string): Promise<void>
 
 }

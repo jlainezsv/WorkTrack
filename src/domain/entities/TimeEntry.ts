@@ -2,6 +2,7 @@ export type PaymentStatus = "paid" | "unpaid"
 
 export class TimeEntry {
   public status: PaymentStatus
+  public paidAt?: string
 
   constructor(
     public readonly id: string,
@@ -12,9 +13,11 @@ export class TimeEntry {
     public readonly description?: string,
     status: PaymentStatus = "unpaid",
     public readonly createdAt: Date = new Date(),
+    paidAt?: string,
     
   ) {
     this.status = status
+    this.paidAt = paidAt
     this.validate()
   }
 
@@ -35,9 +38,11 @@ export class TimeEntry {
 
   public markAsPaid(): void {
     this.status = "paid"
+    this.paidAt = new Date().toISOString().split("T")[0]
   }
 
   public markAsUnpaid(): void {
     this.status = "unpaid"
+    this.paidAt = undefined
   }
 }

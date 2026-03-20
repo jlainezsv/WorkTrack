@@ -13,6 +13,7 @@ export class TimeEntryMapper {
       dto.description,
       dto.status,
       dto.createdAt ? new Date(dto.createdAt) : new Date(),
+      dto.paidAt,
     )
   }
 
@@ -25,7 +26,8 @@ export class TimeEntryMapper {
       clientName: entry.clientName,
       description: entry.description,
       createdAt: entry.createdAt.toISOString(),
-      status: entry.status
+      status: entry.status,
+      paidAt: entry.paidAt,
     }
   }
 

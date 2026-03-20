@@ -6,8 +6,8 @@ export class UpdateTimeEntryStatus {
     private readonly repository: TimeEntryRepository
   ) {}
 
-  async execute(id: string, status: "paid" | "unpaid") {
-    await this.repository.updateStatus(id, status)
+  async execute(id: string, status: "paid" | "unpaid", paidAt?: string) {
+    await this.repository.updateStatus(id, status, paidAt)
   }
 
 }

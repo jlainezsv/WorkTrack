@@ -57,12 +57,12 @@ export function EmployeeProfile() {
     await loadEmployeeData()
   }
 
-  const handleToggleStatus = async (entry: TimeEntry) => {
+  const handleToggleStatus = async (entry: TimeEntry, paidAt?: string) => {
 
       const nextStatus =
         entry.status === "paid" ? "unpaid" : "paid";
 
-      await updateTimeEntryStatus.execute(entry.id, nextStatus);
+      await updateTimeEntryStatus.execute(entry.id, nextStatus, paidAt);
 
       // luego refrescas los datos
       await loadEmployeeData();
@@ -87,7 +87,7 @@ export function EmployeeProfile() {
 
   return (
     <AppLayout>
-      <div className="flex gap-4 align-middle mb-10">
+      <div className="flex  gap-4 align-middle mb-10">
         <div className="flex flex-wrap items-center gap-2">
           <img
             src={employee?.photoUrl || DEFAULT_AVATAR}
